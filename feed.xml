@@ -1,0 +1,2359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>小样同学区块链博客</title>
+    <description>小杨同学，安卓技术开发殿堂级人物。</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 13 May 2018 09:46:52 +0800</pubDate>
+    <lastBuildDate>Sun, 13 May 2018 09:46:52 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.1</generator>
+    
+      <item>
+        <title>使用JavaScript实现智能合约demo</title>
+        <description>&lt;h3 id=&quot;标题&quot;&gt;标题&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &quot;use strict&quot;
+ //声明一个类，有三个属性，相当于MVC中的Model
+var DictionItem = function(text){
+   if(text){
+     //将字符串转换成Json字符串
+   var obj = Json.para(text);
+    this.key = obj.key;
+    this.value = obj.value;
+    this.author = obj.author;
+   }else{
+    this.key = &quot;&quot;;
+    this.value = &quot;&quot;;
+    this.author = &quot;&quot;;
+   }
+ } ,
+ //相当于MVC中的C方法，内部的方法实现将对象转化成Json字符串
+DictionItem.prototype = {
+  toString:function(){
+    return JSON.stringify(this)
+  }
+}
+//创建了一个类，类名字是superDiction,
+ //部署一个合约会创建一个superDiction对象，通过合约地址可以找到改对象
+ //合约地址可以理解成，在区块链上存储改对象的空间地址
+ //每次部署合约都会产生一个新的合约对象，并且对应一个新的合约地址
+ var superDiction:function(){
+   //定义了一个superDiction对象的属性，属性类型为字典，对应的名字是repo
+LocalContractStorage.defineMapProperty(this,&quot;repo&quot;,{
+     //相当于get方法，get读取数据的时候，会讲Json字符串转换成DictionItem对象
+   parse:function(text){
+   return new DictionItem(text);
+   }
+   //相当于set方法，put或者set方法的时候，会讲对象转换成Json对象，并且写到链上
+   stringify:function(o){
+    return  Json.stringify(o)
+   }
+   });
+ }, 
+  superDiction.prototype ={
+  init:function(){
+  }
+  save:function:(key,value){
+    //去掉空格
+  var key = key.trim();
+  var value = key.trim();
+  if(key == &quot;&quot;||value ==&quot;&quot;)
+  {
+     throw new ERROR(&quot;不能为空&quot;);
+  }
+  if(key.length&amp;gt;64||key.value&amp;gt;64)
+   throw new ERROR(&quot;长度超标&quot;);
+  }
+  //自动获取当前登陆钱包的地址
+  var from = Blockchain.transction.from
+  //根据当前的key值，或者value
+   var dicItem = this.repo.get(key);
+   //如果value存在，抛出异常
+   if(dicItem){
+   throw new ERROR(&quot;value 已经存在&quot;);
+   }
+   //如果没有，则创建新的DictionItem对象存储
+  var dicItem = new DictionItem();
+  dicItem.key = key;
+  dicItem.value = value;
+  dicItem.author = from;
+  this.repo.put(key,dicItem);
+ },
+ //查询
+   get: function (key) {
+        key = key.trim();
+        if ( key === &quot;&quot; ) {
+            throw new Error(&quot;empty key&quot;)
+        }
+        return this.repo.get(key);
+    }
+} 
+ module.exports = SuperDictionary;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inclu
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/shuailaotou/contract&quot;&gt;github源代码&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;喜欢就star一下吧！👻👻👻&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;作者原创，转载请注明出处，如有错误描述，请评论纠正，谢谢大家！🐳🐳🐳&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Wed, 09 May 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/05/09/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6demo/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/09/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6demo/</guid>
+        
+        <category>智能合约</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>如何创建一个React项目以及如何安装第三方的库</title>
+        <description>&lt;h2 id=&quot;创建react项目&quot;&gt;创建react项目&lt;/h2&gt;
+
+&lt;h3 id=&quot;1首先安装npm&quot;&gt;1.首先安装npm&lt;/h3&gt;
+&lt;p&gt;我的Mac是使用brew安装的
+&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-01.png&quot; alt=&quot;05-08-01.png&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;2使用npm命令创建app&quot;&gt;2.使用npm命令创建app&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1.首先创建项目文件目录&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-02.png&quot; alt=&quot;05-08-02.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.然后在上面创建的文件下执行&lt;code class=&quot;highlighter-rouge&quot;&gt;create-react-app  reactdemo&lt;/code&gt;代码&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-03.png&quot; alt=&quot;05-08-03.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;注意创建的文件夹的名字不能大写&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3使用atom打开下载好的文件-atom-&quot;&gt;3.使用atom打开下载好的文件 atom ./&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com//react05-08-04.png&quot; alt=&quot;05-08-04.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;4打开之后将选中的文件删除&quot;&gt;4.打开之后将选中的文件删除&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-05.png&quot; alt=&quot;05-08-05.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;5将indexjs中选中的代码删除&quot;&gt;5.将index.js中选中的代码删除&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-06.png&quot; alt=&quot;05-08-06.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;6将indexjs中选中的代码改成&quot;&gt;6.将index.js中选中的代码改成&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-07.png&quot; alt=&quot;05-08-07.png&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;7使用代码npm-start启动reactapp&quot;&gt;7.使用代码npm start启动reactapp&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-08.png&quot; alt=&quot;05-08-08.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;8运行结果&quot;&gt;8.运行结果&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-09.png&quot; alt=&quot;05-08-09.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;删除安装第三方包&quot;&gt;删除安装第三方包&lt;/h2&gt;
+
+&lt;h3 id=&quot;1使用代码npm-uninstall-react删除react包&quot;&gt;1.使用代码npm uninstall react删除react包&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com//react05-08-10.png&quot; alt=&quot;05-08-10.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;1同理使用代码npm-install-nebulas安装nebulas包&quot;&gt;1.同理使用代码npm install nebulas安装nebulas包&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/05-08-11.png&quot; alt=&quot;05-08-11.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;安装好之后可以在node_modules中找到nebulas的包&lt;code class=&quot;highlighter-rouge&quot;&gt;nebulas为星云链的包，星云链为区块链的公链，准备在上面开发dapp，有奖励哦👻&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;据说找工作github的Star很重要，哈哈哈。喜欢就star一下吧！👻👻👻&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;作者原创，转载请注明出处，如有错误描述，请评论纠正，谢谢大家！🐳🐳🐳&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Tue, 08 May 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/05/08/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAReact%E9%A1%B9%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E7%9A%84%E5%BA%93/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/08/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAReact%E9%A1%B9%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E7%9A%84%E5%BA%93/</guid>
+        
+        <category>react项目</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>go语言实现二叉搜索树</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;整理：张帅 博客 : zhangshuai.ren&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;基本概念介绍&quot;&gt;基本概念介绍&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;树(tree)  :&lt;/strong&gt;    一种分层的数据结构，类比家谱&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;二叉搜索树（binary tree）：&lt;/strong&gt; 左节点的值均小于有节点的二叉树&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;深度（depth）：&lt;/strong&gt;从 &lt;strong&gt;root&lt;/strong&gt;根结点到当前节点唯一路径的长度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;高度（height）：&lt;/strong&gt;从当前节点到一片树叶最长的路径的长度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;根（root）：&lt;/strong&gt;深度为0的树节点&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;内部节点（internal node）：&lt;/strong&gt;至少有一个字节点的节点&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;树叶节点（leaf）：&lt;/strong&gt;无字节点的节点&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;兄弟节点（sibling）&lt;/strong&gt;：拥有相同父节点的字节点波、&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/1-1.png&quot; alt=&quot;1-1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;应用&quot;&gt;应用&lt;/h3&gt;
+&lt;p&gt;文件系统和数据库系统一般都采用树（特别是B树）的数据结构数据，主要为排序和检索的效率。二叉树是一种最基本最典型的排序树，对于学习和研究树的特性，但是本身很少在实际中进行应用。就像冒泡排序一样，二叉树因为效率问题并不实用。&lt;/p&gt;
+
+&lt;h3 id=&quot;二叉树的常用操作&quot;&gt;二叉树的常用操作&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; Insert（v） //向二叉树的合适位置插入节点&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Remove(v). // 移除树中所有值为v的节点&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Search(v)   //检查值为v的元素是否在树中&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Min().    //获取二叉树中最小的值&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Max()     //获取二叉树中最大的值&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;InOrderTraverse()  //中序遍历树&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PreOrderTraverse()  //先序遍历树&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PostOrderTraverse() //后序遍历树&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;String()     //在命令行格式化打印出二叉树&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;同样适用genny提供代码的复用性，树类型命名为：ItemBinarySearchTree,树节点的结构体定义如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在命令端使用 
+go get &quot;github.com/cheekybits/genny/generic&quot; 
+命令获取这个包
+
+import (
+    &quot;fmt&quot;
+    &quot;sync&quot;
+
+    &quot;github.com/cheekybits/genny/generic&quot;  
+)
+
+
+type Item generic.Type   //generic.Type 为&quot;github.com/cheekybits/genny/generic&quot;这个包下面的一个空接口类型，type为generic.Type起别名为Item
+
+type Node struct{
+    key        int    //中序遍历的节点序号
+    value      Item   //节点存储的值
+    left       *Node  //左节点
+    right      *Node   //右面节点
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;插入操作与遍历&quot;&gt;插入操作与遍历&lt;/h3&gt;
+&lt;p&gt;插入操作需要使用到递归，插入操作需要从上到下的查找新节点在树中合适的位置，新节点的值小于任意节点，则向左子树继续寻找，同理向右子树寻找，直到树叶节点再插入。&lt;/p&gt;
+
+&lt;p&gt;遍历操作有三种方式：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;中序遍历􏱴􏱿􏲸􏲹􏰁(in-order􏰂􏰃􏰟􏰜􏰀)：&lt;/strong&gt;左子树（L）–&amp;gt;根节点􏰨􏰋􏰗(D)–&amp;gt;右树(R􏰤)􏰀􏰃 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;6-&amp;gt;7-&amp;gt;8-&amp;gt;9-&amp;gt;10- &amp;gt;11 （LDR）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;先序遍历（pre-order）：&lt;/strong&gt;根节点􏰂􏰃􏰨􏰋􏰗(D)–&amp;gt;􏰟􏰜􏰀左子树(L)–&amp;gt;􏰤􏰜􏰀􏰃右树(R) 8-&amp;gt;4-&amp;gt;2-&amp;gt;1-&amp;gt;3-&amp;gt;6-&amp;gt;5-&amp;gt;7 &amp;gt;10-&amp;gt;9- &amp;gt;11（DLR）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;后序遍历（pre-order）：&lt;/strong&gt;左子树􏰂􏰃􏰨􏰋􏰗(L)–&amp;gt;􏰟􏰜􏰀右子树(R)–&amp;gt;根节点（D） 8-&amp;gt;4-&amp;gt;2-&amp;gt;1-&amp;gt;3-&amp;gt;6-&amp;gt;5-&amp;gt;7 &amp;gt;10-&amp;gt;9- &amp;gt;11 （LRD）&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;根据根节点的位置来看是什么序列遍历&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/1-2.png&quot; alt=&quot;1-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;String()&lt;/code&gt; 可视化树结构&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/1-3.png&quot; alt=&quot;1-3&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;代码实现&quot;&gt;代码实现&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Insert&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//向二叉树合适的位置插入节点
+func (tree *ItemBinarySearchTree) Insert(key int, value Item) {
+
+//为了确保操作二叉树的数据安全，对数据操作进行读写上锁
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	newNode := &amp;amp;Node{key, value, nil, nil}
+//如果当前的树为空，那么插入的节点作为根节点
+	if tree.root == nil {
+		tree.root = newNode
+	} else {
+	//调用下面的插入函数，另起一个方法👇
+		insertNode(tree.root, newNode)
+	}
+
+}
+
+//找到合适的位置
+func insertNode(node, newNode *Node) {
+
+//当新节点的值小于节点的值的时候，应该插入到节点的左侧
+	if newNode.key &amp;lt; node.key {
+	//如果旧节点左侧没有节点，那么旧节点直接赋值新节点
+		if node.left == nil {
+			node.left = newNode
+		} else {
+		//否则将左节点作为老节点，继续寻找左节点的左节点
+			insertNode(node.left, newNode)
+		}
+	} else {
+	//与上面同理
+		if node.right == nil {
+			node.right = newNode
+		} else {
+			insertNode(node.right, newNode)
+		}
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Search&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//检查key的元素是否存在
+func (tree *ItemBinarySearchTree) Search(key int) bool {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	return search(tree.root, key)
+
+}
+func search(node *Node, key int) bool {
+
+	if node == nil {
+		return false
+	}
+  //如果key的值小于节点的值，那么应该插入到左子树
+	if key &amp;lt; node.key {
+	//将左子树作为新节点，继续查询
+		return search(node.left, key)
+	}
+	
+	// 如果key的值大于节点的值，那么应该插入右子树
+	if key &amp;gt; node.key {
+	//将右子树作为新节点，继续查询
+		return search(node.right, key)
+	}
+
+//如果当前key的值==node.key 返回true
+	return true
+
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&quot;删除节点的流程&quot;&gt;删除节点的流程&lt;/h5&gt;
+
+&lt;p&gt;先递归查找，再删除节点。但是在删除时需要根据节点拥有子节点的数量，分如下3中情况：
+&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/1-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;代码实现-1&quot;&gt;代码实现&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+func (tree *ItemBinarySearchTree) remove(key int) {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	remove(tree.root, key)
+	
+}
+
+func remove(node *Node, key int) *Node {
+	if node == nil {
+		return nil
+	}
+	
+   // 如果key&amp;lt; node.key 则向左寻找
+	
+	if key &amp;lt; node.key {
+	
+		// 将左节点作为新节点递归继续寻找
+		
+		node.left = remove(node.left, key)
+		return node
+	}
+
+	// 如果key&amp;gt; node.key 则向右寻找
+
+	if key &amp;gt; node.key {
+	
+	// 将右节点作为新节点递归继续寻找
+	
+		node.right = remove(node.right, key)
+		return node
+	}
+
+//如果key==node.key 判断node有没有左右子树，如果没有，则直接删除
+	if node.left == nil &amp;amp;&amp;amp; node.right == nil {
+
+		node = nil
+		return node
+	}
+//如果key==node.key 判断node有没有左右子树，如果有右子树，则将右子树直接赋值给当前节点，完成覆盖删除
+	if node.left == nil {
+		node = node.right
+		return node
+	}
+	
+	//如果key==node.key 判断node有没有左右子树，如果有右子树，则将右子树直接赋值给当前节点，完成覆盖删除
+	
+	if node.right == nil {
+		node = node.left
+		return node
+	}
+
+	mostLeftMode := node.right
+// 要删除的节点有2个字节点，找到右子树的最左节点，替换当前节点􏱚􏱐􏲝􏰈􏰖􏰗􏰛 
+	for {
+	
+	//一直遍历找到最左节点
+		if mostLeftMode != nil &amp;amp;&amp;amp; mostLeftMode.left != nil {
+			mostLeftMode = mostLeftMode.left
+		} else {
+			break
+		}
+
+	}
+
+// 使用右子树的最左节点替换当前的节点，即删除当前节点
+	node.key, node.value = mostLeftMode.key,mostLeftMode.value
+
+	node.right = remove(node.right, node.key)
+
+	return node
+
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Max&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//获取最大节点即为二叉树最右节点，根据二叉树的性质
+
+func (tree *ItemBinarySearchTree) Max() *Item {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	node := tree.root
+	if node == nil {
+		return nil
+	}
+	for {
+
+		if node.right == nil {
+			return &amp;amp;node.value
+		}
+
+		node = node.right
+	}
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Min&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-'&quot;&gt;
+// 根据二叉树的性质,获取最大节点即为二叉树最右节点
+
+func (tree *ItemBinarySearchTree) Min() *Item {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+
+	node := tree.root
+
+	if node == nil {
+		return nil
+	}
+
+	for {
+		if node.left == nil {
+			return &amp;amp;node.value
+		} else {
+			node = node.left
+		}
+
+	}
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Traverse&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+// 先序遍历：根节点 -&amp;gt; 左子树 -&amp;gt;右子树
+func (tree *ItemBinarySearchTree) PreOrderTraverse(printFunc func(Item)) {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	
+	preOrderTraverse(tree.root, printFunc)
+
+}
+
+func preOrderTraverse(node *Node, printFunc func(Item)) {
+
+	if node != nil {
+	//先打印根节点
+		printFunc(node.value)
+		
+		//然后递归调用自己，将左节点作为新节点，打印
+		preOrderTraverse(node.left, printFunc)
+		//然后递归调用自己，将右节点作为新节点，打印
+		preOrderTraverse(node.right, printFunc)
+
+	}
+
+}
+
+// 中序遍历： 左子树 -&amp;gt;根节点 -&amp;gt;右子树
+func (tree *ItemBinarySearchTree) PostOrderTraverse(printFunc func(Item)) {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+
+	postOrderTraverse(tree.root, printFunc)
+
+}
+
+func postOrderTraverse(node *Node, printFunc func(Item)) {
+
+	if node != nil {
+    //递归调用自己，将左节点作为新节点，打印
+		preOrderTraverse(node.left, printFunc)
+		//打印根节点
+		printFunc(node.value)
+		//递归调用自己，将右节点作为新节点，打印
+		preOrderTraverse(node.right, printFunc)
+
+	}
+
+}
+
+
+// 后序遍历： 左子树  -&amp;gt;右子树-&amp;gt;根节点
+
+func (tree *ItemBinarySearchTree) InOrderTraverse(printFunc func(Item)) {
+
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+
+	inOrderTraverse(tree.root, printFunc)
+
+}
+
+func inOrderTraverse(node *Node, printFunc func(Item)) {
+
+	if node != nil {
+     //递归调用自己，将左节点作为新节点，打印
+		preOrderTraverse(node.left, printFunc)
+		//递归调用自己，将右节点作为新节点，打印
+		preOrderTraverse(node.right, printFunc)
+		//打印根节点
+		printFunc(node.value)
+
+	}
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;String&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+//后序遍历打印树的结构
+func (tree *ItemBinarySearchTree) String() {
+	tree.lock.Lock()
+	defer tree.lock.Unlock()
+	if tree.root == nil {
+		println(&quot;Tree is empty&quot;)
+		return
+	}
+	stringify(tree.root, 0)
+	println(&quot;----------------------------&quot;)
+}
+func stringify(node *Node, level int) {
+	if node == nil {
+		return
+	}
+	format := &quot;&quot;
+	for i := 0; i &amp;lt; level; i++ {
+		format += &quot;\t&quot; //根据节点的深度决定缩进长度
+
+	}
+	format += &quot;----[ &quot;
+	level++
+	//先递归打印左子树􏱈􏱉􏱊􏱋􏱌􏰟􏰜􏰀 
+	stringify(node.left, level)
+	//打印值
+	fmt.Printf(format+&quot;%d\n&quot;, node.key) 
+	//再递归打印右子树
+	 stringify(node.right, level)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;对于二叉树的操作，增删查都与递归相关，所以实现的时候一定要分析清楚递归的终止条件，在正确的条件下return，避开死循环。&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 03 May 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/05/03/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/03/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</guid>
+        
+        <category>二叉树</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Go语言简单实现比特币挖矿原理</title>
+        <description>&lt;h3 id=&quot;区块链基本概念&quot;&gt;区块链基本概念&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;区块链&lt;/code&gt;本质上是一个对等网络（peer-to-peer）的&lt;code class=&quot;highlighter-rouge&quot;&gt;分布式账本数据库&lt;/code&gt;，
+比特币的底层就采用了区块链的技术架构。区块链本身其实是一串链接的数据区块，每相邻区块之间相互连接，其链接指针是采用&lt;code class=&quot;highlighter-rouge&quot;&gt;密码学哈希算法&lt;/code&gt;对区块头进行处理所产生的区块头哈希值。每一个区块数据块中记录了一组采用哈希算法组成的树状交易状态信息，这样保证了&lt;code class=&quot;highlighter-rouge&quot;&gt;每个区块内的交易数据不可篡改，区块链里链接的区块也不可篡改&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;比特币的交易记录会保存在数据区块中，比特币系统中大约每10分钟会产生一个区块，每个数据区块一般包含区块头（Header）和区块体（Body）两部分，如图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/4-27-1-1.jpg&quot; alt=&quot;1-1.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;区块头封装了当前的版本号（Version）、前一区块地址（Prev-Block）、时间戳（Timestamp）、随机数（Nonce）、当前 区块的目标哈希值（Bits）、Merkle数的根值（Merkle-root）等信息。&lt;/p&gt;
+
+&lt;h4 id=&quot;区块头分析&quot;&gt;区块头分析&lt;/h4&gt;
+&lt;p&gt;前80个字节是区块头&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;hash&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ver&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;prev_block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;mrkl_root&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1293623863&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;bits&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;453281356&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;nonce&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;274148111&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字节&lt;/th&gt;
+      &lt;th&gt;字段&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;版本&lt;/td&gt;
+      &lt;td&gt;区块版本号，表示区块遵守的验证规则&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;父区块头哈希值&lt;/td&gt;
+      &lt;td&gt;前一区块的哈希值，使用SHA(SHA256(父区块头))计算&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;Merkle根&lt;/td&gt;
+      &lt;td&gt;该区块中交易的Merkle树根的哈希值，&lt;br /&gt;同样采用SHA(SHA256(父区块头))计算&amp;lt;/br&amp;gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;时间戳&lt;/td&gt;
+      &lt;td&gt;该区块产生的近似时间，精确到秒的UNIX时间戳，&lt;br /&gt;必须严格大于前11个区块时间的中值&amp;lt;/br&amp;gt;，&lt;br /&gt;同时全节点也会拒绝那些超出自己2个小时时间戳的区块&amp;lt;/br&amp;gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;难度目标&lt;/td&gt;
+      &lt;td&gt;该区块工作量算法的难度目标，已经使用特定算法编码&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;Nonce&lt;/td&gt;
+      &lt;td&gt;为了找到满足难度目标所设定的随机数，&lt;br /&gt;为了解决32位随机数在算力飞升的情况下不够用的问题，&amp;lt;/br&amp;gt;规定时间戳和coinbase交易信息均可更改，以此扩展nonce的位数&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;挖矿&quot;&gt;挖矿&lt;/h3&gt;
+&lt;p&gt;区块在挖矿过程中产生。所谓的挖矿实际上是&lt;code class=&quot;highlighter-rouge&quot;&gt;穷举随机数的算法&lt;/code&gt;，把上个区块的哈希值加上十分钟内的全部交易单打包，再加上一个算计数，算出一个256位的字符串哈希值，输入的随机数Nonce 使哈希值满足一定的条件就获得这个区块的交易记账权。新产生的区块需要&lt;code class=&quot;highlighter-rouge&quot;&gt;快速的广播出去&lt;/code&gt;，以便其他的节点对其进行验证，以防止造假。当记账成功的时候，即获得区块奖励，也就是挖到了比特币。&lt;/p&gt;
+
+&lt;h3 id=&quot;获得比特币&quot;&gt;获得比特币&lt;/h3&gt;
+&lt;p&gt;随着随机数（Nonce）的不断变化，就会产生不同的哈希值，当产生的&lt;code class=&quot;highlighter-rouge&quot;&gt;哈希值左面的连续位数的0值个数大于等于当前区块难度值的时候&lt;/code&gt;，即碰撞成功，找到随机数，获得记账权，获得比特币。如下图：
+&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/4-27-1-2.png&quot; alt=&quot;1-2.png&quot; /&gt;
+这个难度为4，碰撞出的随机数是87471.随着难度的不断提高，碰撞出随机数的概率就越低。目前比特币矿机最大的算力为蚂蚁大陆的S9矿机（14TH/s）。我就有两台哦，不过现在每天的产量只有0.0009个BTC，少的可怜。。。&lt;/p&gt;
+
+&lt;h3 id=&quot;代码实现&quot;&gt;代码实现&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;定义block结构体&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+type block struct {
+
+	ver       int   //版本号
+	prev_block string  //父区块的哈希值
+	mekl_root  string   //该区块merkle树的哈希值
+	time       string   //时间戳
+	bits       int      // 难度
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;获取哈希值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+func getHashValueStr(nonce int,blc block) string {
+
+//拼接区块版本号，时间戳，父区块，merkle树，随机数为hv字符串
+	hv := strconv.Itoa(blc.ver) + blc.time + blc.prev_block+
+		blc.mekl_root + strconv.Itoa(nonce)
+
+	first := sha256.New()
+
+	first.Write([]byte(hv))
+
+// first.Sum(nil)返回值为[]byte 类型的数组，
+ 而哈希值由每位字符16进制字符组成，所以应用fmt.Springtf
+ 函数将数组转化为单个字节为16进制拼接而成的哈希字符串
+
+	return fmt.Sprintf(&quot;%x&quot;,first.Sum(nil))
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;检验随机数生产的哈希函数是否符合条件&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+
+func mining(hashStr string, diff int) bool {
+
+	var i int
+
+	for i = 0; i &amp;lt; len(hashStr); i++ {
+
+      //如果i位数 的值不为0，不满足条件，跳出循环
+		if hashStr[i] != '0' {
+			break
+		}
+	}
+	//判断i的值是否大于当前的难度，大于碰撞成功，否则失败
+	return i &amp;gt;= diff
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;获取随机数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+func getNonce(blc block)int  {
+
+	nonce := 0
+	
+	//改变nonce的值，如果返回false，nonce++
+	
+	for !mining(getHashValueStr(nonce,blc), blc.bits) {
+
+		fmt.Println(getHashValueStr(nonce,blc))
+		nonce ++
+
+	}
+	fmt.Println(getHashValueStr(nonce,blc))
+	fmt.Println(&quot;出块成功！&quot;)
+
+	return nonce
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;主函数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+func main() {
+
+	prev_block := &quot;000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506&quot;
+
+	mrkl_root := &quot;000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250&quot;
+
+	time := &quot;1293623863&quot;
+
+	bits := 4
+
+	block := block{1, prev_block, mrkl_root, time, bits}
+
+	nc := getNonce(block)
+
+	fmt.Println(nc)
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://p7rz9r9fd.bkt.clouddn.com/4-27-1-3.png&quot; alt=&quot;1-3&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+&lt;p&gt;代码只是简单的实现了比特币的挖矿原理，实际上可能比这处理的更细致，考虑的更全面一些。
+至于挖矿的事情，兵法有云“兵贵神速”，17年比特币大涨，那时候难度还不是很高，去云南四川那边投资矿厂的人都赚的盆满钵满，我就认识了一位17年初挖矿的矿工，最高峰拥有20000台S9，一年赚了将近10亿，投资成本据说是几十万。当然这些也都需要一些眼光，勇气，我只是在现在看过去罢了，至于那个时候谁都不知道比特币能涨这么猛。包括现在我之所以还会继续购置矿机，是因为我同样认为目前比特币还远远未到达它应有的价值，产量虽然少，但是挖出的币我是不会卖的，5年以后，10年以后再看，那可能同样现在看过去的感觉。当然这些不是重点，也不构成投资建议。重点看代码，看代码！😂&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/shuailaotou/go-&quot;&gt;github源代码&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;据说找工作github的Star很重要，哈哈哈。喜欢就star一下吧！👻👻👻&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;作者原创，转载请注明出处，如有错误描述，请评论纠正，谢谢大家！🐳🐳🐳&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Thu, 03 May 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/05/03/Go%E8%AF%AD%E8%A8%80%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF%E5%8E%9F%E7%90%86/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/03/Go%E8%AF%AD%E8%A8%80%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF%E5%8E%9F%E7%90%86/</guid>
+        
+        <category>挖矿</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Golang经典笔试题及答案（下篇）</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;整理：黎跃春&lt;/p&gt;
+
+  &lt;p&gt;博客：http://liyuechun.org&lt;/p&gt;
+
+  &lt;p&gt;官网：http://kongyixueyuan.com&lt;/p&gt;
+
+  &lt;p&gt;备注：如有错误，请指正，不断更新迭代&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;1-下面代码能运行吗为什么&quot;&gt;1. 下面代码能运行吗？为什么&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type Param map[string]interface{}
+
+type Show struct {
+	Param
+}
+
+func main1() {
+	s := new(Show)
+	s.Param[&quot;RMB&quot;] = 10000
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;panic: assignment to entry in nil map
+
+goroutine 1 [running]:
+main.main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如上所示，运行过程中会发生异常，原因是因为字典&lt;code class=&quot;highlighter-rouge&quot;&gt;Param&lt;/code&gt;的默认值为&lt;code class=&quot;highlighter-rouge&quot;&gt;nil&lt;/code&gt;，当给字典&lt;code class=&quot;highlighter-rouge&quot;&gt;nil&lt;/code&gt;增加键值对是就会发生运行时错误&lt;code class=&quot;highlighter-rouge&quot;&gt;panic: assignment to entry in nil map&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;正确的修改方案如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+type Param map[string]interface{}
+
+type Show struct {
+	Param
+}
+
+func main() {
+
+	// 创建Show结构体对象
+	s := new(Show)
+	// 为字典Param赋初始值
+	s.Param = Param{}
+	// 修改键值对
+	s.Param[&quot;RMB&quot;] = 10000
+	fmt.Println(s)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;amp;{map[RMB:10000]}
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;2-请说出下面代码存在什么问题&quot;&gt;2. 请说出下面代码存在什么问题&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type student struct {
+	Name string
+}
+
+func f(v interface{}) {
+	switch msg := v.(type) {
+    	case *student, student:
+    		msg.Name
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;有两个问题：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;问题一：&lt;code class=&quot;highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;是一个没有声明任何方法的接口。&lt;/li&gt;
+  &lt;li&gt;问题二：&lt;code class=&quot;highlighter-rouge&quot;&gt;Name&lt;/code&gt;是一个属性，而不是方法，&lt;code class=&quot;highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;类型的变量无法调用属性。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;3-写出打印的结果&quot;&gt;3. 写出打印的结果。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type People struct {
+	name string `json:&quot;name&quot;`
+}
+
+func main() {
+	js := `{
+		&quot;name&quot;:&quot;11&quot;
+	}`
+	var p People
+	err := json.Unmarshal([]byte(js), &amp;amp;p)
+	if err != nil {
+		fmt.Println(&quot;err: &quot;, err)
+		return
+	}
+	fmt.Println(&quot;people: &quot;, p)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;people:  {}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;p中的属性值为空的原因是因为，name的首字母小写，修改成大写，重新运行即可。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;encoding/json&quot;
+	&quot;fmt&quot;
+)
+
+type People struct {
+	Name string `json:&quot;name&quot;`
+}
+
+func main() {
+	js := `{
+        &quot;name&quot;:&quot;11&quot;
+    }`
+	var p People
+	err := json.Unmarshal([]byte(js), &amp;amp;p)
+	if err != nil {
+		fmt.Println(&quot;err: &quot;, err)
+		return
+	}
+	fmt.Println(&quot;people: &quot;, p)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;people:  {11}
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;4-下面的代码是有问题的请说明原因&quot;&gt;4. 下面的代码是有问题的，请说明原因。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+type People struct {
+	Name string
+}
+
+func (p *People) String() string {
+	return fmt.Sprintf(&quot;print: %v&quot;, p)
+}
+
+func main() {
+	p := &amp;amp;People{}
+	p.String()
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;runtime: goroutine stack exceeds 1000000000-byte limit
+fatal error: stack overflow
+
+runtime stack:
+runtime.throw(0x10c122b, 0xe)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;如下所示，上面的代码出现了栈溢出，原因是因为%v格式化字符串是本身会调用String()方法，上面的栈溢出是因为无限递归所致。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;5-请找出下面代码的问题所在&quot;&gt;5. 请找出下面代码的问题所在。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	ch := make(chan int, 1000)
+	go func() {
+		for i := 0; i &amp;lt; 10; i++ {
+			ch &amp;lt;- i
+		}
+	}()
+	go func() {
+		for {
+			a, ok := &amp;lt;-ch
+			if !ok {
+				fmt.Println(&quot;close&quot;)
+				return
+			}
+			fmt.Println(&quot;a: &quot;, a)
+		}
+	}()
+	close(ch)
+	fmt.Println(&quot;ok&quot;)
+	time.Sleep(time.Second * 100)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;panic: send on closed channel
+ok
+
+goroutine 5 [running]:
+main.main.func1(0xc420098000)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;解析：出现上面错误的原因是因为提前关闭通道所致。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;正确代码如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	// 创建一个缓冲通道
+	ch := make(chan int, 1000)
+
+	go func() {
+		for i := 0; i &amp;lt; 10; i++ {
+			ch &amp;lt;- i
+		}
+	}()
+
+	go func() {
+		for i := 0; i &amp;lt; 10; i++ {
+			a, ok := &amp;lt;-ch
+			
+			if !ok {
+				fmt.Println(&quot;close&quot;)
+				close(ch)
+				return
+			}
+			fmt.Println(&quot;a: &quot;, a)
+		}
+	}()
+
+	fmt.Println(&quot;ok&quot;)
+	time.Sleep(time.Second)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ok
+a:  0
+a:  1
+a:  2
+a:  3
+a:  4
+a:  5
+a:  6
+a:  7
+a:  8
+a:  9
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;6-请说明下面代码书写是否正确&quot;&gt;6. 请说明下面代码书写是否正确。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var value int32
+
+func SetValue(delta int32) {
+	for {
+		v := value
+		if atomic.CompareAndSwapInt32(&amp;amp;value, v(v+delta)) {
+			break
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;atomic.CompareAndSwapInt32&lt;/code&gt;里面一共三个参数，上面的书写错误，正确的书写是：&lt;code class=&quot;highlighter-rouge&quot;&gt;atomic.CompareAndSwapInt32(&amp;amp;value, v,v+delta)&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;func CompareAndSwapInt32(addr *int32, old, new int32) (swapped bool)&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;第一个参数的值应该是指向被操作值的指针值。该值的类型即为&lt;code class=&quot;highlighter-rouge&quot;&gt;*int32&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;后两个参数的类型都是&lt;code class=&quot;highlighter-rouge&quot;&gt;int32&lt;/code&gt;类型。它们的值应该分别代表被操作值的旧值和新值&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CompareAndSwapInt32·函数在被调用之后会先判断参数&lt;/code&gt;addr&lt;code class=&quot;highlighter-rouge&quot;&gt;指向的被操作值与参数&lt;/code&gt;old`的值是否相等。&lt;/li&gt;
+  &lt;li&gt;仅当此判断得到肯定的结果之后，该函数才会用参数&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;代表的新值替换掉原先的旧值。否则，后面的替换操作就会被忽略。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;完整代码如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;sync/atomic&quot;
+	&quot;fmt&quot;
+)
+
+var value int32
+
+func SetValue(delta int32) {
+	for {
+		v := value
+		// 比较并交换
+
+		if atomic.CompareAndSwapInt32(&amp;amp;value, v,v+delta) {
+			fmt.Println(value)
+			break
+		}
+	}
+}
+
+func main()  {
+	SetValue(100)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果为&lt;code class=&quot;highlighter-rouge&quot;&gt;100&lt;/code&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;7-下面的程序运行后为什么会爆异常&quot;&gt;7. 下面的程序运行后为什么会爆异常。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+type Project struct{}
+
+func (p *Project) deferError() {
+	if err := recover(); err != nil {
+		fmt.Println(&quot;recover: &quot;, err)
+	}
+}
+
+func (p *Project) exec(msgchan chan interface{}) {
+	for msg := range msgchan {
+		m := msg.(int)
+		fmt.Println(&quot;msg: &quot;, m)
+	}
+}
+
+func (p *Project) run(msgchan chan interface{}) {
+	for {
+		defer p.deferError()
+		go p.exec(msgchan)
+		time.Sleep(time.Second * 2)
+	}
+}
+
+func (p *Project) Main() {
+	a := make(chan interface{}, 100)
+	go p.run(a)
+	go func() {
+		for {
+			a &amp;lt;- &quot;1&quot;
+			time.Sleep(time.Second)
+		}
+	}()
+	time.Sleep(time.Second * 100)
+}
+
+func main() {
+	p := new(Project)
+	p.Main()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;panic: interface conversion: interface {} is string, not int
+
+goroutine 17 [running]:
+main.(*Project).exec(0x1157c08, 0xc420068060)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;出现异常的原因是因为写入到管道的数据类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;,而&lt;code class=&quot;highlighter-rouge&quot;&gt;m := msg.(int)&lt;/code&gt;这句代码里面却使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;，修改方法，将&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;修改为&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;即可。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;完整正确代码如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+type Project struct{}
+
+func (p *Project) deferError() {
+	if err := recover(); err != nil {
+		fmt.Println(&quot;recover: &quot;, err)
+	}
+}
+
+func (p *Project) exec(msgchan chan interface{}) {
+	for msg := range msgchan {
+		m := msg.(string)
+		fmt.Println(&quot;msg: &quot;, m)
+	}
+}
+
+func (p *Project) run(msgchan chan interface{}) {
+	for {
+		defer p.deferError()
+		go p.exec(msgchan)
+		time.Sleep(time.Second * 2)
+	}
+}
+
+func (p *Project) Main() {
+	a := make(chan interface{}, 100)
+	go p.run(a)
+	go func() {
+		for {
+			a &amp;lt;- &quot;1&quot;
+			time.Sleep(time.Second)
+		}
+	}()
+	time.Sleep(time.Second * 100)
+}
+
+func main() {
+	p := new(Project)
+	p.Main()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;msg:  1
+msg:  1
+msg:  1
+.
+.
+.
+msg:  1
+msg:  1
+msg:  1
+msg:  1
+msg:  1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;8-请说出下面代码哪里写错了&quot;&gt;8. 请说出下面代码哪里写错了。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main() {
+	abc := make(chan int, 1000)
+	for i := 0; i &amp;lt; 10; i++ {
+		abc &amp;lt;- i
+	}
+	go func() {
+		for {
+			a := &amp;lt;-abc
+			fmt.Println(&quot;a: &quot;, a)
+		}
+	}()
+	close(abc)
+	fmt.Println(&quot;close&quot;)
+	time.Sleep(time.Second * 100)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;go中的for循环是死循环，应该设置出口。正确代码如下：&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	abc := make(chan int, 1000)
+	for i := 0; i &amp;lt; 10; i++ {
+		abc &amp;lt;- i
+	}
+	go func() {
+		for {
+			a,ok := &amp;lt;-abc
+			if !ok {
+				fmt.Println(&quot;结束！&quot;)
+				return
+			}
+			fmt.Println(&quot;a: &quot;, a)
+		}
+	}()
+	close(abc)
+	fmt.Println(&quot;close&quot;)
+	time.Sleep(time.Second * 100)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;close
+a:  0
+a:  1
+a:  2
+a:  3
+a:  4
+a:  5
+a:  6
+a:  7
+a:  8
+a:  9
+结束！
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;9-请说出下面代码执行时为什么会报错&quot;&gt;9. 请说出下面代码，执行时为什么会报错&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type Student struct {
+	name string
+}
+
+func main() {
+	m := map[string]Student{&quot;people&quot;: {&quot;liyuechun&quot;}}
+	m[&quot;people&quot;].name = &quot;wuyanzu&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;答案：报错的原因是因为不能修改字典中&lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt;为结构体的属性值。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;代码作如下修改方可运行：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+type Student struct {
+	name string
+}
+
+func main() {
+	m := map[string]Student{&quot;people&quot;: {&quot;liyuechun&quot;}}
+	fmt.Println(m)
+	fmt.Println(m[&quot;people&quot;])
+
+	// 不能修改字典中结构体属性的值
+	//m[&quot;people&quot;].name = &quot;wuyanzu&quot;
+	
+	var s Student = m[&quot;people&quot;] //深拷贝
+	s.name = &quot;xietingfeng&quot;
+	fmt.Println(m)
+	fmt.Println(s)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;map[people:{liyuechun}]
+{liyuechun}
+map[people:{liyuechun}]
+{wuyanzu}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;10-请说出下面的代码存在什么问题&quot;&gt;10. 请说出下面的代码存在什么问题&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type query func(string) string
+
+func exec(name string, vs ...query) string {
+	ch := make(chan string)
+	fn := func(i int) {
+		ch &amp;lt;- vs[i](name)
+	}
+	for i, _ := range vs {
+		go fn(i)
+	}
+	return &amp;lt;-ch
+}
+
+func main() {
+	ret := exec(&quot;111&quot;, func(n string) string {
+		return n + &quot;func1&quot;
+	}, func(n string) string {
+		return n + &quot;func2&quot;
+	}, func(n string) string {
+		return n + &quot;func3&quot;
+	}, func(n string) string {
+		return n + &quot;func4&quot;
+	})
+	fmt.Println(ret)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;return &amp;lt;-ch&lt;/code&gt;&lt;/strong&gt;之执行一次，所以不管传入多少&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt;函数，都只是读取最先执行完的&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;关注区块链部落实时获取最新技术文章&quot;&gt;关注区块链部落，实时获取最新技术文章&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://om1c35wrq.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%83%A8%E8%90%BD-1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 27 Apr 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/04/27/golang-interview/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/04/27/golang-interview/</guid>
+        
+        <category>笔试题</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Golang经典笔试题及答案（上篇）</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;整理：黎跃春
+博客：http://liyuechun.org
+官网：http://kongyixueyuan.com&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;1-写出下面代码输出内容&quot;&gt;1. 写出下面代码输出内容&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Go&quot;&gt;package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	defer_call()
+}
+
+func defer_call() {
+
+	defer func() {
+		fmt.Println(&quot;打印前&quot;)
+	}()
+
+	defer func() {
+		fmt.Println(&quot;打印中&quot;)
+	}()
+
+	defer func() {
+		fmt.Println(&quot;打印后&quot;)
+	}()
+
+	panic(&quot;触发异常&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在这个案例中，&lt;code class=&quot;highlighter-rouge&quot;&gt;触发异常&lt;/code&gt;这几个字打印的顺序其实是不确定的。&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;panic&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;recover&lt;/code&gt;一般都会配套使用来捕捉异常。先看下面的案例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;案例一&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	defer_call()
+}
+
+func defer_call() {
+
+	defer func() {
+		fmt.Println(&quot;打印前&quot;)
+	}()
+
+	defer func() {
+		fmt.Println(&quot;打印中&quot;)
+	}()
+
+	defer func() { // 必须要先声明defer，否则recover()不能捕获到panic异常
+
+		if err := recover();err != nil {
+			fmt.Println(err) //err 就是panic传入的参数
+		}
+		fmt.Println(&quot;打印后&quot;)
+	}()
+
+	panic(&quot;触发异常&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;触发异常
+打印后
+打印中
+打印前
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;案例二&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	defer_call()
+}
+
+func defer_call() {
+
+	defer func() {
+		fmt.Println(&quot;打印前&quot;)
+	}()
+
+	defer func() { // 必须要先声明defer，否则recover()不能捕获到panic异常
+		if err := recover();err != nil {
+			fmt.Println(err) //err 就是panic传入的参数
+		}
+		fmt.Println(&quot;打印中&quot;)
+	}()
+
+	defer func() {
+
+		fmt.Println(&quot;打印后&quot;)
+	}()
+
+	panic(&quot;触发异常&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;打印后
+触发异常
+打印中
+打印前
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;案例三&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	defer_call()
+}
+
+func defer_call() {
+
+	defer func() {
+		if err := recover();err != nil {
+			fmt.Println(err) //err 就是panic传入的参数
+		}
+		fmt.Println(&quot;打印前&quot;)
+	}()
+
+	defer func() { // 必须要先声明defer，否则recover()不能捕获到panic异常
+		if err := recover();err != nil {
+			fmt.Println(err) //err 就是panic传入的参数
+		}
+		fmt.Println(&quot;打印中&quot;)
+	}()
+
+	defer func() {
+		if err := recover();err != nil {
+			fmt.Println(err) //err 就是panic传入的参数
+		}
+		fmt.Println(&quot;打印后&quot;)
+	}()
+
+	panic(&quot;触发异常&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;触发异常
+打印后
+打印中
+打印前
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;总结：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;函数属延迟执行，延迟到调用者函数执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt; 命令前被执行。多个&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;之间按&lt;code class=&quot;highlighter-rouge&quot;&gt;LIFO&lt;/code&gt;先进后出顺序执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Go&lt;/code&gt;中可以抛出一个&lt;code class=&quot;highlighter-rouge&quot;&gt;panic&lt;/code&gt;的异常，然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;中通过&lt;code class=&quot;highlighter-rouge&quot;&gt;recover&lt;/code&gt;捕获这个异常，然后正常处理。&lt;/li&gt;
+  &lt;li&gt;如果同时有多个&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;，那么异常会被最近的&lt;code class=&quot;highlighter-rouge&quot;&gt;recover()&lt;/code&gt;捕获并正常处理。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2-以下代码有什么问题说明原因&quot;&gt;2. 以下代码有什么问题，说明原因&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Go&quot;&gt;package main
+import (
+	&quot;fmt&quot;
+)
+type student struct {
+	Name string
+	Age  int
+}
+func pase_student() map[string]*student {
+	m := make(map[string]*student)
+	stus := []student{
+		{Name: &quot;zhou&quot;, Age: 24},
+		{Name: &quot;li&quot;, Age: 23},
+		{Name: &quot;wang&quot;, Age: 22},
+	}
+	for _, stu := range stus {
+		m[stu.Name] = &amp;amp;stu
+	}
+	return m
+}
+func main() {
+	students := pase_student()
+	for k, v := range students {
+		fmt.Printf(&quot;key=%s,value=%v \n&quot;, k, v)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;key=zhou,value=&amp;amp;{wang 22} 
+key=li,value=&amp;amp;{wang 22} 
+key=wang,value=&amp;amp;{wang 22} 
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;修改一下代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将下面的代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for _, stu := range stus {
+    m[stu.Name] = &amp;amp;stu
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;修改为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for _, stu := range stus {
+	fmt.Printf(&quot;%v\t%p\n&quot;,stu,&amp;amp;stu)
+	m[stu.Name] = &amp;amp;stu
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;shen&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4200&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4020&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;li&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4200&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4020&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4200&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4020&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=shen,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=li,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=wang,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;通过上面的案例，我们不难发现&lt;code class=&quot;highlighter-rouge&quot;&gt;stu&lt;/code&gt;&lt;/strong&gt;变量的地址始终保持不变，每次遍历仅进行&lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt;值拷贝，故&lt;code class=&quot;highlighter-rouge&quot;&gt;m[stu.Name]=&amp;amp;stu&lt;/code&gt;实际上一直指向同一个地址，最终该地址的值为遍历的最后一个&lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt;的值拷贝。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;形同如下代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var stu student 
+for _, stu = range stus {
+	m[stu.Name] = &amp;amp;stu
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;修正方案，取数组中原始值的地址：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for i, _ := range stus {
+	stu:=stus[i]
+	m[stu.Name] = &amp;amp;stu
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;重新运行，效果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;shen&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;060&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;li&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xc&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=shen,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;shen&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=li,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;li&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key=wang,value=&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;wang&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;3-下面的代码会输出什么并说明原因&quot;&gt;3. 下面的代码会输出什么，并说明原因&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;runtime&quot;
+	&quot;sync&quot;
+)
+
+func init() {
+	fmt.Println(&quot;Current Go Version:&quot;, runtime.Version())
+}
+func main() {
+	runtime.GOMAXPROCS(1)
+
+	count := 10
+	wg := sync.WaitGroup{}
+	wg.Add(count * 2)
+	for i := 0; i &amp;lt; count; i++ {
+		go func() {
+			fmt.Printf(&quot;[%d]&quot;, i)
+			wg.Done()
+		}()
+	}
+	for i := 0; i &amp;lt; count; i++ {
+		go func(i int) {
+			fmt.Printf(&quot;-%d-&quot;, i)
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行效果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Current Go Version: go1.10.1
+-9-[10][10][10][10][10][10][10][10][10][10]-0--1--2--3--4--5--6--7--8-
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;两个&lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;循环内部&lt;code class=&quot;highlighter-rouge&quot;&gt;go func&lt;/code&gt; 调用参数i的方式是不同的，导致结果完全不同。这也是新手容易遇到的坑。&lt;/p&gt;
+
+&lt;p&gt;第一个&lt;code class=&quot;highlighter-rouge&quot;&gt;go func&lt;/code&gt;中&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;是外部&lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;的一个变量，地址不变化。遍历完成后，最终&lt;code class=&quot;highlighter-rouge&quot;&gt;i=10&lt;/code&gt;。故&lt;code class=&quot;highlighter-rouge&quot;&gt;go func&lt;/code&gt;执行时，&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;的值始终是&lt;code class=&quot;highlighter-rouge&quot;&gt;10&lt;/code&gt;（&lt;code class=&quot;highlighter-rouge&quot;&gt;10&lt;/code&gt;次遍历很快完成）。&lt;/p&gt;
+
+&lt;p&gt;第二个&lt;code class=&quot;highlighter-rouge&quot;&gt;go func&lt;/code&gt;中&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;是函数参数，与外部&lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;中的&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;完全是两个变量。尾部(&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;)将发生值拷贝，&lt;code class=&quot;highlighter-rouge&quot;&gt;go func&lt;/code&gt;内部指向值拷贝地址。&lt;/p&gt;
+
+&lt;h3 id=&quot;4-下面代码会输出什么&quot;&gt;4. 下面代码会输出什么？&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+type People struct{}
+
+func (p *People) ShowA() {
+	fmt.Println(&quot;showA&quot;)
+	p.ShowB()
+}
+func (p *People) ShowB() {
+	fmt.Println(&quot;showB&quot;)
+}
+
+type Teacher struct {
+	People
+}
+
+func (t *Teacher) ShowB() {
+	fmt.Println(&quot;teacher showB&quot;)
+}
+
+func main() {
+	t := Teacher{}
+	t.ShowA()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;showA
+showB
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Go&lt;/code&gt;中没有继承,上面这种写法叫组合。&lt;/p&gt;
+
+&lt;p&gt;上面的&lt;code class=&quot;highlighter-rouge&quot;&gt;t.ShowA()&lt;/code&gt;等价于&lt;code class=&quot;highlighter-rouge&quot;&gt;t.People.ShowA()&lt;/code&gt;，将上面的代码修改如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main() {
+	t := Teacher{}
+	t.ShowA()
+	fmt.Println(&quot;---------------&quot;)
+	t.People.ShowA()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果为：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;showA
+showB
+---------------
+showA
+showB
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;5-下面代码会触发异常吗请详细说明&quot;&gt;5. 下面代码会触发异常吗？请详细说明&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+func main() {
+	runtime.GOMAXPROCS(1)
+	int_chan := make(chan int, 1)
+	string_chan := make(chan string, 1)
+	int_chan &amp;lt;- 1
+	string_chan &amp;lt;- &quot;hello&quot;
+	select {
+    	case value := &amp;lt;-int_chan:
+    		fmt.Println(value)
+    	case value := &amp;lt;-string_chan:
+    		panic(value)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;有可能会发生异常，如果没有&lt;code class=&quot;highlighter-rouge&quot;&gt;selct&lt;/code&gt;这段代码，就会出现线程阻塞，当有&lt;code class=&quot;highlighter-rouge&quot;&gt;selct&lt;/code&gt;这个语句后，系统会随机抽取一个&lt;code class=&quot;highlighter-rouge&quot;&gt;case&lt;/code&gt;进行判断，只有有其中一条语句正常&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;，此程序将立即执行。&lt;/p&gt;
+
+&lt;h3 id=&quot;6-下面代码输出什么&quot;&gt;6. 下面代码输出什么？&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+func calc(index string, a, b int) int {
+	ret := a + b
+	fmt.Println(index, a, b, ret)
+	return ret
+}
+
+func main() {
+	a := 1
+	b := 2
+	defer calc(&quot;1&quot;, a, calc(&quot;10&quot;, a, b))
+	a = 0
+	defer calc(&quot;2&quot;, a, calc(&quot;20&quot;, a, b))
+	b = 1
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;10 1 2 3
+20 0 2 2
+2 0 2 2
+1 1 3 4
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;在解题前需要明确两个概念：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;defer&lt;/code&gt;是在函数末尾的&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;前执行，先进后执行。&lt;/li&gt;
+  &lt;li&gt;函数调用时 &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt; 参数发生值拷贝。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不管代码顺序如何，&lt;code class=&quot;highlighter-rouge&quot;&gt;defer calc func&lt;/code&gt;中参数&lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt;必须先计算，故会在运行到第三行时，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;calc(&quot;10&quot;,a,b)&lt;/code&gt;输出：&lt;code class=&quot;highlighter-rouge&quot;&gt;10 1 2 3&lt;/code&gt;得到值&lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;，将&lt;code class=&quot;highlighter-rouge&quot;&gt;cal(&quot;1&quot;,1,3)&lt;/code&gt;存放到延后执执行函数队列中。&lt;/p&gt;
+
+&lt;p&gt;执行到第五行时，现行计算&lt;code class=&quot;highlighter-rouge&quot;&gt;calc(&quot;20&quot;, a, b)&lt;/code&gt;即&lt;code class=&quot;highlighter-rouge&quot;&gt;calc(&quot;20&quot;, 0, 2)&lt;/code&gt;输出：&lt;code class=&quot;highlighter-rouge&quot;&gt;20 0 2 2&lt;/code&gt;得到值&lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;,将&lt;code class=&quot;highlighter-rouge&quot;&gt;cal(&quot;2&quot;,0,2)&lt;/code&gt;存放到延后执行函数队列中。&lt;/p&gt;
+
+&lt;p&gt;执行到末尾行，按队列先进后出原则依次执行：&lt;code class=&quot;highlighter-rouge&quot;&gt;cal(&quot;2&quot;,0,2)、cal(&quot;1&quot;,1,3) &lt;/code&gt;，依次输出：&lt;code class=&quot;highlighter-rouge&quot;&gt;2 0 2 2、1 1 3 4&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;h3 id=&quot;7-请写出以下输入内容&quot;&gt;7. 请写出以下输入内容&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+func main() {
+	s := make([]int, 5)
+	fmt.Printf(&quot;%p\n&quot;, s)
+	s = append(s, 1, 2, 3)
+	fmt.Printf(&quot;%p\n&quot;, s) //new pointer
+	fmt.Println(s)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0xc4200180c0
+0xc42001c0a0
+[0 0 0 0 0 1 2 3]
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;8-下面的代码有什么问题&quot;&gt;8. 下面的代码有什么问题&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+package main
+
+import (
+	&quot;fmt&quot;
+	&quot;sync&quot;
+)
+
+type UserAges struct {
+	ages map[string]int
+	sync.Mutex
+}
+
+func (ua *UserAges) Add(name string, age int) {
+	ua.Lock()
+	defer ua.Unlock()
+	ua.ages[name] = age
+}
+
+func (ua *UserAges) Get(name string) int {
+	if age, ok := ua.ages[name]; ok {
+		return age
+	}
+	return -1
+}
+
+func main() {
+	count := 1000
+	gw := sync.WaitGroup{}
+	gw.Add(count * 3)
+	u := UserAges{ages: map[string]int{}}
+	add := func(i int) {
+		u.Add(fmt.Sprintf(&quot;user_%d&quot;, i), i)
+		gw.Done()
+	}
+	
+	for i := 0; i &amp;lt; count; i++ {
+		go add(i)
+		go add(i)
+	}
+	
+	for i := 0; i &amp;lt; count; i++ {
+		go func(i int) {
+			defer gw.Done()
+			u.Get(fmt.Sprintf(&quot;user_%d&quot;, i))
+		}(i)
+	}
+	gw.Wait()
+	fmt.Println(&quot;Done&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出结果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fatal error: concurrent map read and map write
+
+goroutine 2022 [running]:
+runtime.throw(0x10c5472, 0x21)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;结论：&lt;/strong&gt; 在执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;Get&lt;/code&gt; 方法时可能被&lt;code class=&quot;highlighter-rouge&quot;&gt;panic&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;虽然有使用&lt;code class=&quot;highlighter-rouge&quot;&gt;sync.Mutex&lt;/code&gt;做写锁，但是&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;是并发读写不安全的。&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;属于引用类型，并发读写时多个协程见是通过指针访问同一个地址，即访问共享变量，此时同时读写资源存在竞争关系。所以会报错误信息:&lt;code class=&quot;highlighter-rouge&quot;&gt;fatal error: concurrent map read and map write&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果第一次没复现&lt;code class=&quot;highlighter-rouge&quot;&gt;panic&lt;/code&gt;问题，可以再次运行，复现该问题。那么如何改善呢? 在&lt;code class=&quot;highlighter-rouge&quot;&gt;Go1.9&lt;/code&gt;新版本中将提供并发安全的&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;。首先需要了解两种锁的不同：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sync.Mutex&lt;/code&gt;互斥锁&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sync.RWMutex&lt;/code&gt;读写锁，基于互斥锁的实现，可以加多个读锁或者一个写锁。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;RWMutex相关方法：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type RWMutex
+    func (rw *RWMutex) Lock() 
+    func (rw *RWMutex) RLock()
+    func (rw *RWMutex) RLocker() Locker
+    func (rw *RWMutex) RUnlock()
+    func (rw *RWMutex) Unlock()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;代码改进如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;fmt&quot;
+	&quot;sync&quot;
+)
+
+type UserAges struct {
+	ages map[string]int
+	sync.RWMutex
+}
+
+func (ua *UserAges) Add(name string, age int) {
+	ua.Lock()
+	defer ua.Unlock()
+	ua.ages[name] = age
+}
+
+func (ua *UserAges) Get(name string) int {
+	ua.RLock()
+	defer ua.RUnlock()
+	if age, ok := ua.ages[name]; ok {
+		return age
+	}
+
+	return -1
+}
+
+func main() {
+	count := 10000
+	gw := sync.WaitGroup{}
+	gw.Add(count * 3)
+	u := UserAges{ages: map[string]int{}}
+	add := func(i int) {
+		u.Add(fmt.Sprintf(&quot;user_%d&quot;, i), i)
+		gw.Done()
+	}
+	for i := 0; i &amp;lt; count; i++ {
+		go add(i)
+		go add(i)
+	}
+	for i := 0; i &amp;lt; count; i++ {
+		go func(i int) {
+			defer gw.Done()
+			u.Get(fmt.Sprintf(&quot;user_%d&quot;, i))
+			fmt.Print(&quot;.&quot;)
+		}(i)
+	}
+	gw.Wait()
+	fmt.Println(&quot;Done&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;运行结果如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.
+.
+.
+.
+Done
+
+Process finished with exit code 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;9-下面的迭代会有什么问题&quot;&gt;9. 下面的迭代会有什么问题？&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+import &quot;sync&quot;
+import &quot;time&quot;
+
+type ThreadSafeSet struct {
+	sync.RWMutex
+	s []int
+}
+
+func (set *ThreadSafeSet) Iter() &amp;lt;-chan interface{} {
+	ch := make(chan interface{})
+	go func() {
+		set.RLock()
+
+		for elem := range set.s {
+			ch &amp;lt;- elem
+			fmt.Print(&quot;get:&quot;, elem, &quot;,&quot;)
+		}
+
+		close(ch)
+		set.RUnlock()
+
+	}()
+	return ch
+}
+
+func main() {
+	//read()
+	unRead()
+}
+func read() {
+	set := ThreadSafeSet{}
+	set.s = make([]int, 100)
+	ch := set.Iter()
+	closed := false
+	for {
+		select {
+		case v, ok := &amp;lt;-ch:
+			if ok {
+				fmt.Print(&quot;read:&quot;, v, &quot;,&quot;)
+			} else {
+				closed = true
+			}
+		}
+		if closed {
+			fmt.Print(&quot;closed&quot;)
+			break
+		}
+	}
+	fmt.Print(&quot;Done&quot;)
+}
+
+func unRead() {
+	set := ThreadSafeSet{}
+	set.s = make([]int, 100)
+	ch := set.Iter()
+	_ = ch
+	time.Sleep(5 * time.Second)
+	fmt.Print(&quot;Done&quot;)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;结论：&lt;/strong&gt;内部迭代出现阻塞。默认初始化时无缓冲区，需要等待接收者读取后才能继续写入。&lt;/p&gt;
+
+&lt;p&gt;chan在使用make初始化时可附带一个可选参数来设置缓冲区。默认无缓冲，题目中便初始化的是无缓冲区的chan，这样只有写入的元素直到被读取后才能继续写入，不然就一直阻塞。&lt;/p&gt;
+
+&lt;p&gt;设置缓冲区大小后，写入数据时可连续写入到缓冲区中，直到缓冲区被占满。从chan中接收一次便可从缓冲区中释放一次。可以理解为chan是可以设置吞吐量的处理池。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ch := make(chan interface{}) &lt;/code&gt;和 &lt;code class=&quot;highlighter-rouge&quot;&gt;ch := make(chan interface{},1)&lt;/code&gt;是不一样的
+无缓冲的 不仅仅是只能向 &lt;code class=&quot;highlighter-rouge&quot;&gt;ch&lt;/code&gt; 通道放 一个值 而是一直要有人接收，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;ch &amp;lt;- elem&lt;/code&gt;才会继续下去，要不然就一直阻塞着，也就是说有接收者才去放，没有接收者就阻塞。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;而缓冲为&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;则即使没有接收者也不会阻塞，因为缓冲大小是&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;只有当 放第二个值的时候 第一个还没被人拿走，这时候才会阻塞&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;10-以下代码能编译过去吗为什么&quot;&gt;10. 以下代码能编译过去吗？为什么？&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+import (
+	&quot;fmt&quot;
+)
+type People interface {
+	Speak(string) string
+}
+type Stduent struct{}
+func (stu *Stduent) Speak(think string) (talk string) {
+	if think == &quot;bitch&quot; {
+		talk = &quot;You are a good boy&quot;
+	} else {
+		talk = &quot;hi&quot;
+	}
+	return
+}
+func main() {
+	var peo People = Stduent{}
+	think := &quot;bitch&quot;
+	fmt.Println(peo.Speak(think))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;结论：&lt;/strong&gt;编译失败，值类型 &lt;code class=&quot;highlighter-rouge&quot;&gt;Student{}&lt;/code&gt; 未实现接口&lt;code class=&quot;highlighter-rouge&quot;&gt;People&lt;/code&gt;的方法，不能定义为 &lt;code class=&quot;highlighter-rouge&quot;&gt;People&lt;/code&gt; 类型。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;两种正确修改方法：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;方法一&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+import (
+	&quot;fmt&quot;
+)
+type People interface {
+	Speak(string) string
+}
+
+type Stduent struct{}
+
+func (stu Stduent) Speak(think string) (talk string) {
+	if think == &quot;bitch&quot; {
+		talk = &quot;You are a good boy&quot;
+	} else {
+		talk = &quot;hi&quot;
+	}
+	return
+}
+func main() {
+	var peo People = Stduent{}
+	think := &quot;hi&quot;
+	fmt.Println(peo.Speak(think))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;方法二&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+import (
+	&quot;fmt&quot;
+)
+type People interface {
+	Speak(string) string
+}
+
+type Stduent struct{}
+
+func (stu Stduent) Speak(think string) (talk string) {
+	if think == &quot;bitch&quot; {
+		talk = &quot;You are a good boy&quot;
+	} else {
+		talk = &quot;hi&quot;
+	}
+	return
+}
+func main() {
+	var peo People = &amp;amp;Stduent{}
+	think := &quot;bitch&quot;
+	fmt.Println(peo.Speak(think))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;总结：&lt;/strong&gt;指针类型的结构体对象可以同时调用结构体值类型和指针类型对应的方法。而值类型的结构体对象只能调用值类型对应的接口方法。&lt;/p&gt;
+
+&lt;h3 id=&quot;关注区块链部落实时获取最新技术文章&quot;&gt;关注区块链部落，实时获取最新技术文章&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://om1c35wrq.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%83%A8%E8%90%BD-1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 24 Apr 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/04/24/golang-interview/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/04/24/golang-interview/</guid>
+        
+        <category>笔试题</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

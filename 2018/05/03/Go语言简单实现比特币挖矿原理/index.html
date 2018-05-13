@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Go语言简单实现比特币挖矿原理</title>
+  <meta name="description" content="Go语言简单实现比特币挖矿原理">
+  <meta name="author" content="张帅">
+
+  <meta name="keywords" content="Go语言简单实现比特币挖矿原理"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Go语言简单实现比特币挖矿原理">
+  <meta name="twitter:description" content="Go语言简单实现比特币挖矿原理">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Go语言简单实现比特币挖矿原理">
+  <meta property="og:description" content="Go语言简单实现比特币挖矿原理">
+  <meta property="og:site_name" content="Go语言简单实现比特币挖矿原理e"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/05/03/Go%E8%AF%AD%E8%A8%80%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF%E5%8E%9F%E7%90%86/">
+  <link rel="alternate" type="application/rss+xml" title="小样同学区块链博客" href="http://localhost:4000 /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  
+  <!-- 百度统计 -->
+  
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f3290601666dc2ca016a38c340c144f1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">        
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+          
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 小样同学区块链博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   美女程序员 
+                </h2>´
+                <p style="font-size: 6px">
+                   小红科技|CEO 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 小样同学区块链博客" class="blog-button">小样同学区块链博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">小杨同学，安卓技术开发殿堂级人物。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">知识星球</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">个人公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">Go语言简单实现比特币挖矿原理</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-05-03 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-03</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <h3 id="区块链基本概念">区块链基本概念</h3>
+
+<p><code class="highlighter-rouge">区块链</code>本质上是一个对等网络（peer-to-peer）的<code class="highlighter-rouge">分布式账本数据库</code>，
+比特币的底层就采用了区块链的技术架构。区块链本身其实是一串链接的数据区块，每相邻区块之间相互连接，其链接指针是采用<code class="highlighter-rouge">密码学哈希算法</code>对区块头进行处理所产生的区块头哈希值。每一个区块数据块中记录了一组采用哈希算法组成的树状交易状态信息，这样保证了<code class="highlighter-rouge">每个区块内的交易数据不可篡改，区块链里链接的区块也不可篡改</code>。</p>
+
+<p>比特币的交易记录会保存在数据区块中，比特币系统中大约每10分钟会产生一个区块，每个数据区块一般包含区块头（Header）和区块体（Body）两部分，如图所示。</p>
+
+<p><img src="http://p7rz9r9fd.bkt.clouddn.com/4-27-1-1.jpg" alt="1-1.jpg" /></p>
+
+<p>区块头封装了当前的版本号（Version）、前一区块地址（Prev-Block）、时间戳（Timestamp）、随机数（Nonce）、当前 区块的目标哈希值（Bits）、Merkle数的根值（Merkle-root）等信息。</p>
+
+<h4 id="区块头分析">区块头分析</h4>
+<p>前80个字节是区块头</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"prev_block"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"mrkl_root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1293623863</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"bits"</span><span class="p">:</span><span class="w"> </span><span class="mi">453281356</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">274148111</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>字节</th>
+      <th>字段</th>
+      <th>说明</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>4</td>
+      <td>版本</td>
+      <td>区块版本号，表示区块遵守的验证规则</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>32</td>
+      <td>父区块头哈希值</td>
+      <td>前一区块的哈希值，使用SHA(SHA256(父区块头))计算</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>32</td>
+      <td>Merkle根</td>
+      <td>该区块中交易的Merkle树根的哈希值，<br />同样采用SHA(SHA256(父区块头))计算&lt;/br&gt;</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>4</td>
+      <td>时间戳</td>
+      <td>该区块产生的近似时间，精确到秒的UNIX时间戳，<br />必须严格大于前11个区块时间的中值&lt;/br&gt;，<br />同时全节点也会拒绝那些超出自己2个小时时间戳的区块&lt;/br&gt;</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>4</td>
+      <td>难度目标</td>
+      <td>该区块工作量算法的难度目标，已经使用特定算法编码</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>4</td>
+      <td>Nonce</td>
+      <td>为了找到满足难度目标所设定的随机数，<br />为了解决32位随机数在算力飞升的情况下不够用的问题，&lt;/br&gt;规定时间戳和coinbase交易信息均可更改，以此扩展nonce的位数</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="挖矿">挖矿</h3>
+<p>区块在挖矿过程中产生。所谓的挖矿实际上是<code class="highlighter-rouge">穷举随机数的算法</code>，把上个区块的哈希值加上十分钟内的全部交易单打包，再加上一个算计数，算出一个256位的字符串哈希值，输入的随机数Nonce 使哈希值满足一定的条件就获得这个区块的交易记账权。新产生的区块需要<code class="highlighter-rouge">快速的广播出去</code>，以便其他的节点对其进行验证，以防止造假。当记账成功的时候，即获得区块奖励，也就是挖到了比特币。</p>
+
+<h3 id="获得比特币">获得比特币</h3>
+<p>随着随机数（Nonce）的不断变化，就会产生不同的哈希值，当产生的<code class="highlighter-rouge">哈希值左面的连续位数的0值个数大于等于当前区块难度值的时候</code>，即碰撞成功，找到随机数，获得记账权，获得比特币。如下图：
+<img src="http://p7rz9r9fd.bkt.clouddn.com/4-27-1-2.png" alt="1-2.png" />
+这个难度为4，碰撞出的随机数是87471.随着难度的不断提高，碰撞出随机数的概率就越低。目前比特币矿机最大的算力为蚂蚁大陆的S9矿机（14TH/s）。我就有两台哦，不过现在每天的产量只有0.0009个BTC，少的可怜。。。</p>
+
+<h3 id="代码实现">代码实现</h3>
+
+<p><strong>定义block结构体</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+type block struct {
+
+	ver       int   //版本号
+	prev_block string  //父区块的哈希值
+	mekl_root  string   //该区块merkle树的哈希值
+	time       string   //时间戳
+	bits       int      // 难度
+
+}
+
+</code></pre>
+</div>
+
+<p><strong>获取哈希值</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func getHashValueStr(nonce int,blc block) string {
+
+//拼接区块版本号，时间戳，父区块，merkle树，随机数为hv字符串
+	hv := strconv.Itoa(blc.ver) + blc.time + blc.prev_block+
+		blc.mekl_root + strconv.Itoa(nonce)
+
+	first := sha256.New()
+
+	first.Write([]byte(hv))
+
+// first.Sum(nil)返回值为[]byte 类型的数组，
+ 而哈希值由每位字符16进制字符组成，所以应用fmt.Springtf
+ 函数将数组转化为单个字节为16进制拼接而成的哈希字符串
+
+	return fmt.Sprintf("%x",first.Sum(nil))
+
+}
+
+</code></pre>
+</div>
+
+<p><strong>检验随机数生产的哈希函数是否符合条件</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+
+func mining(hashStr string, diff int) bool {
+
+	var i int
+
+	for i = 0; i &lt; len(hashStr); i++ {
+
+      //如果i位数 的值不为0，不满足条件，跳出循环
+		if hashStr[i] != '0' {
+			break
+		}
+	}
+	//判断i的值是否大于当前的难度，大于碰撞成功，否则失败
+	return i &gt;= diff
+
+}
+</code></pre>
+</div>
+
+<p><strong>获取随机数</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func getNonce(blc block)int  {
+
+	nonce := 0
+	
+	//改变nonce的值，如果返回false，nonce++
+	
+	for !mining(getHashValueStr(nonce,blc), blc.bits) {
+
+		fmt.Println(getHashValueStr(nonce,blc))
+		nonce ++
+
+	}
+	fmt.Println(getHashValueStr(nonce,blc))
+	fmt.Println("出块成功！")
+
+	return nonce
+
+
+}
+</code></pre>
+</div>
+
+<p><strong>主函数</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func main() {
+
+	prev_block := "000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506"
+
+	mrkl_root := "000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250"
+
+	time := "1293623863"
+
+	bits := 4
+
+	block := block{1, prev_block, mrkl_root, time, bits}
+
+	nc := getNonce(block)
+
+	fmt.Println(nc)
+
+}
+
+</code></pre>
+</div>
+
+<p><strong>运行结果</strong></p>
+
+<p><img src="http://p7rz9r9fd.bkt.clouddn.com/4-27-1-3.png" alt="1-3" /></p>
+
+<h2 id="总结">总结</h2>
+<p>代码只是简单的实现了比特币的挖矿原理，实际上可能比这处理的更细致，考虑的更全面一些。
+至于挖矿的事情，兵法有云“兵贵神速”，17年比特币大涨，那时候难度还不是很高，去云南四川那边投资矿厂的人都赚的盆满钵满，我就认识了一位17年初挖矿的矿工，最高峰拥有20000台S9，一年赚了将近10亿，投资成本据说是几十万。当然这些也都需要一些眼光，勇气，我只是在现在看过去罢了，至于那个时候谁都不知道比特币能涨这么猛。包括现在我之所以还会继续购置矿机，是因为我同样认为目前比特币还远远未到达它应有的价值，产量虽然少，但是挖出的币我是不会卖的，5年以后，10年以后再看，那可能同样现在看过去的感觉。当然这些不是重点，也不构成投资建议。重点看代码，看代码！😂</p>
+
+<hr />
+<p><a href="https://github.com/shuailaotou/go-">github源代码</a></p>
+
+<p>据说找工作github的Star很重要，哈哈哈。喜欢就star一下吧！👻👻👻</p>
+
+<blockquote>
+  <p>作者原创，转载请注明出处，如有错误描述，请评论纠正，谢谢大家！🐳🐳🐳</p>
+</blockquote>
+
+
+  </section>
+  <h2 style="color:red"><strong>版权声明：博客中的文章版权归博主所有，未经授权，禁止转载，转载请注明出处，合作请联系：zs649704832(微信)</strong></h2>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/04/27/golang-interview/" data-toggle="tooltip" data-placement="top" title="Golang经典笔试题及答案（下篇）">上一篇：  <span>Golang经典笔试题及答案（下篇）</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/05/03/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-toggle="tooltip" data-placement="top" title="go语言实现二叉搜索树">下一篇：  <span>go语言实现二叉搜索树</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+<section class="post-comments">
+  <!--PC和WAP自适应版-->
+<div id="SOHUCS" sid=Go语言简单实现比特币挖矿原理 ></div>
+<script type="text/javascript">
+(function(){
+var appid = 'cytfSz8yx';
+var conf = 'prod_ad710bf09d342725ed536beddc68aa27';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/yhl13937643386" title="@yhl13937643386 的 Github" target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <li class="navigation__item_social">
+            <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+              <i class='social fa fa-rss fa-2x'></i>
+              <span class="label">RSS</span>
+            </a>
+          </li>
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:18811426598@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr id="bar_head">
+          <th colspan="11">友情链接</th>
+        </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+          <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+          <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+          <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+          <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+          <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+          <td><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a></td>
+
+          <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+          <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+          <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+          <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted">
+        Copyright &copy; 2018 小样同学区块链博客 京ICP备15065741号. 区块链开发_Golang QQ群：312197108
+      </p>
+      <div align="right">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <span id="busuanzi_container_site_pv">
+            本站总访问量
+            <span id="busuanzi_value_site_pv"></span>次
+        </span>
+
+      </div>
+      <div>
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>
